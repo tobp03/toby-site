@@ -67,7 +67,7 @@ function getTextFromChildren(children: React.ReactNode): string {
   if (Array.isArray(children)) {
     return children.map(getTextFromChildren).join("");
   }
-  if (React.isValidElement(children)) {
+  if (React.isValidElement<{ children?: React.ReactNode }>(children)) {
     return getTextFromChildren(children.props.children);
   }
   return "";
