@@ -1,0 +1,41 @@
+# --------------------
+# Environment files
+# --------------------
+.env
+.env.*
+!*.example
+
+# --------------------
+# Python
+# --------------------
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Python virtual environments
+venv/
+.venv/
+*/venv/
+*/.venv/
+
+# --------------------
+# Node / Next.js
+# --------------------
+node_modules/
+.next/
+out/
+dist/
+
+# --------------------
+# Ignore scripts folder completely
+# --------------------
+scripts/
+
+# --------------------
+# OS / Editor junk
+# --------------------
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
