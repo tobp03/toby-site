@@ -1,21 +1,32 @@
-# Toby Purbojo
-
-**Nationality:** Indonesian  
-**Location:** Debrecen, Hungary  
-**Email:** tobyspurbojo@gmail.com  
-**GitHub:** https://github.com/tobp03  
-**LinkedIn:** https://www.linkedin.com/in/tobypurbojo/
+<div class="resume-hero">
+  <h1 class="resume-name"><span class="resume-name-accent">Toby</span> Purbojo</h1>
+  <p class="resume-tagline">MSc Data Science student • Debrecen, Hungary</p>
+  <div class="resume-contact-row">
+    <img src="/email.png" alt="" aria-hidden="true" />
+    <a href="mailto:tobyspurbojo@gmail.com">tobypurbojo1@gmail.com</a>
+  </div>
+  <div class="resume-contact-row resume-contact-links">
+    <a href="https://github.com/tobp03" class="resume-contact-link">
+      <img src="/github.png" alt="" aria-hidden="true" />
+      GitHub
+    </a>
+    <a href="https://www.linkedin.com/in/tobypurbojo/" class="resume-contact-link">
+      <img src="/linkedin.png" alt="" aria-hidden="true" />
+      LinkedIn
+    </a>
+  </div>
+</div>
 
 ---
 
 ## Education & Training
 
 **MSc in Data Science**  
-University of Debrecen  
+University of Debrecen, Hungary
 *Sep 2025 – Present*
 
 **BSc in Mathematics**  
-Parahyangan Catholic University, Bandung, Indonesia  
+Parahyangan Catholic University, Indonesia  
 *Jul 2020 – Jul 2024*  
 - Final Grade: **3.57 / 4.00**
 

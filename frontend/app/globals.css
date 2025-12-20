@@ -422,6 +422,129 @@ a {
   margin-bottom: 0.6rem;
 }
 
+.projects-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.projects-list li {
+  margin-bottom: 0.65rem;
+}
+
+.project-link {
+  background: none;
+  border: none;
+  padding: 0;
+  color: inherit;
+  font: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
+.project-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+}
+
+.project-overlay {
+  position: absolute;
+  inset: 0;
+  background: color-mix(in srgb, var(--background) 15%, transparent);
+  border: none;
+  cursor: pointer;
+}
+
+.project-panel {
+  position: relative;
+  width: min(720px, calc(100% - 32px));
+  max-height: min(80vh, 720px);
+  margin: 10vh auto 0;
+  background: var(--background);
+  border: 1px solid color-mix(in srgb, var(--foreground) 20%, transparent);
+  border-radius: 14px;
+  padding: 24px;
+  overflow: hidden;
+  z-index: 1;
+  box-shadow: 0 10px 20px color-mix(in srgb, #000 35%, transparent);
+  animation: project-slide-in 220ms ease-out;
+}
+
+.project-panel-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.project-panel-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.project-icon-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--foreground) 20%, transparent);
+  background: color-mix(in srgb, var(--background) 90%, transparent);
+}
+
+.project-icon-link img {
+  width: 18px;
+  height: 18px;
+}
+
+.project-panel-date {
+  margin: 0 0 4px;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.project-panel h2 {
+  margin: 0;
+}
+
+.project-close {
+  border: 1px solid color-mix(in srgb, var(--foreground) 25%, transparent);
+  background: color-mix(in srgb, var(--background) 90%, transparent);
+  color: inherit;
+  padding: 6px 12px;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.project-panel-body {
+  margin-top: 16px;
+  overflow-y: auto;
+  max-height: 55vh;
+  padding-right: 6px;
+}
+
+.project-panel-body img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+  border: 1px solid color-mix(in srgb, var(--foreground) 15%, transparent);
+}
+
+@keyframes project-slide-in {
+  from {
+    transform: translateX(-24px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
 .resume-page {
   background: var(--background);
 }
@@ -453,6 +576,47 @@ a {
   height: 1px;
   background: color-mix(in srgb, var(--foreground) 18%, transparent);
   margin: 2rem 0;
+}
+
+.resume-hero {
+  margin-bottom: 1.4rem;
+}
+
+.resume-name {
+  font-size: 2.4rem;
+  margin-bottom: 0.25rem;
+}
+
+.resume-name-accent {
+  color: inherit;
+}
+
+.resume-tagline {
+  margin: 0 0 1rem;
+  color: color-mix(in srgb, var(--foreground) 75%, transparent);
+}
+
+.resume-contact-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 0.5rem;
+}
+
+.resume-contact-row img {
+  width: 16px;
+  height: 16px;
+}
+
+.resume-contact-links {
+  gap: 20px;
+}
+
+.resume-contact-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
 }
 
 .resume-page p {
