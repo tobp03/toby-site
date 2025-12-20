@@ -1,5 +1,6 @@
 import fs from "fs";
 import path from "path";
+import { Suspense } from "react";
 import ProjectsList, { ProjectItem } from "./projects-list";
 
 export default function ProjectsPage() {
@@ -103,7 +104,9 @@ export default function ProjectsPage() {
   return (
     <main style={{ padding: 32, maxWidth: 900, margin: "0 auto" }}>
       <h1>Projects</h1>
-      <ProjectsList items={items} />
+      <Suspense fallback={<p>Loading projects...</p>}>
+        <ProjectsList items={items} />
+      </Suspense>
     </main>
   );
 }
