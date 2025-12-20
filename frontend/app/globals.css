@@ -300,6 +300,13 @@ body {
   font-family: var(--font-ibm-plex-serif), "Times New Roman", Times, serif;
 }
 
+a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-thickness: 0.1px;
+  text-underline-offset: 3px;
+}
+
 @media (max-width: 768px) {
   body {
     font-size: 0.85rem;
