@@ -156,18 +156,27 @@ export default function Home() {
         <p className="social-line">
           Find me on{" "}
           <a href="https://github.com/tobp03" aria-label="GitHub">
-            <img src="/github.png" alt="" aria-hidden="true" />
+            <span className="theme-icon" aria-hidden="true">
+              <img className="icon-light" src="/github_light.svg" alt="" />
+              <img className="icon-dark" src="/github_dark.svg" alt="" />
+            </span>
           </a>
           ,{" "}
           <a
             href="https://www.linkedin.com/in/tobypurbojo"
             aria-label="LinkedIn"
           >
-            <img src="/linkedin.png" alt="" aria-hidden="true" />
+            <span className="theme-icon" aria-hidden="true">
+              <img className="icon-light" src="/linkedin_light.svg" alt="" />
+              <img className="icon-dark" src="/linkedin_dark.svg" alt="" />
+            </span>
           </a>
           , and{" "}
           <a href="mailto:tobypurbojo1@gmail.com" aria-label="Email">
-            <img src="/email.png" alt="" aria-hidden="true" />
+            <span className="theme-icon" aria-hidden="true">
+              <img className="icon-light" src="/mail_light.svg" alt="" />
+              <img className="icon-dark" src="/mail_dark.svg" alt="" />
+            </span>
           </a>
         </p>
       </section>

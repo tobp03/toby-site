@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, isValidElement, Children } from "react";
 import { useSearchParams } from "next/navigation";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
@@ -95,7 +95,10 @@ export default function ProjectsList({ items }: ProjectsListProps) {
                     aria-label="Open GitHub repository"
                     className="project-icon-link"
                   >
-                    <img src="/github.png" alt="" aria-hidden="true" />
+                    <span className="theme-icon" aria-hidden="true">
+                      <img className="icon-light" src="/github_light.svg" alt="" />
+                      <img className="icon-dark" src="/github_dark.svg" alt="" />
+                    </span>
                   </a>
                 ) : null}
                 {activeItem.liveUrl ? (
@@ -106,7 +109,10 @@ export default function ProjectsList({ items }: ProjectsListProps) {
                     aria-label="Open live project"
                     className="project-icon-link"
                   >
-                    <img src="/play.png" alt="" aria-hidden="true" />
+                    <span className="theme-icon" aria-hidden="true">
+                      <img className="icon-light" src="/play_light.svg" alt="" />
+                      <img className="icon-dark" src="/play_dark.svg" alt="" />
+                    </span>
                   </a>
                 ) : null}
                 <button
@@ -123,6 +129,31 @@ export default function ProjectsList({ items }: ProjectsListProps) {
                 remarkPlugins={[remarkGfm]}
                 rehypePlugins={[rehypeRaw]}
                 components={{
+                  p: ({ children }) => {
+                    const childArray = Children.toArray(children);
+                    const meaningfulChildren = childArray.filter((child) => {
+                      if (typeof child === "string") {
+                        return child.trim() !== "";
+                      }
+                      return true;
+                    });
+                    const hasFigureOrImage = meaningfulChildren.some(
+                      (child) =>
+                        isValidElement(child) &&
+                        (child.type === "figure" || child.type === "img"),
+                    );
+                    if (
+                      meaningfulChildren.length === 1 &&
+                      isValidElement(meaningfulChildren[0]) &&
+                      meaningfulChildren[0].type === "figure"
+                    ) {
+                      return <>{meaningfulChildren}</>;
+                    }
+                    if (hasFigureOrImage) {
+                      return <div>{children}</div>;
+                    }
+                    return <p>{children}</p>;
+                  },
                   img: ({ alt, title, ...props }) => {
                     const caption = title || alt;
                     if (!caption) {

@@ -2,16 +2,25 @@
   <h1 class="resume-name"><span class="resume-name-accent">Toby</span> Purbojo</h1>
   <p class="resume-tagline">MSc Data Science student • Debrecen, Hungary</p>
   <div class="resume-contact-row">
-    <img src="/email.png" alt="" aria-hidden="true" />
+    <span class="theme-icon" aria-hidden="true">
+      <img class="icon-light" src="/mail_light.svg" alt="" />
+      <img class="icon-dark" src="/mail_dark.svg" alt="" />
+    </span>
     <a href="mailto:tobyspurbojo@gmail.com">tobypurbojo1@gmail.com</a>
   </div>
   <div class="resume-contact-row resume-contact-links">
     <a href="https://github.com/tobp03" class="resume-contact-link">
-      <img src="/github.png" alt="" aria-hidden="true" />
+      <span class="theme-icon" aria-hidden="true">
+        <img class="icon-light" src="/github_light.svg" alt="" />
+        <img class="icon-dark" src="/github_dark.svg" alt="" />
+      </span>
       GitHub
     </a>
     <a href="https://www.linkedin.com/in/tobypurbojo/" class="resume-contact-link">
-      <img src="/linkedin.png" alt="" aria-hidden="true" />
+      <span class="theme-icon" aria-hidden="true">
+        <img class="icon-light" src="/linkedin_light.svg" alt="" />
+        <img class="icon-dark" src="/linkedin_dark.svg" alt="" />
+      </span>
       LinkedIn
     </a>
   </div>
