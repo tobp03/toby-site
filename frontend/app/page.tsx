@@ -60,7 +60,7 @@ export default function Home() {
       {/* Intro */}
       <section>
         <h1>Toby Purbojo</h1>
-        <p>
+        <p className="home-intro">
           Hi, I’m Toby. I’m currently studying for a Master’s degree in Data
           Science in Debrecen, Hungary. I’ve done some research on isolated sign
           language recognition, but I’m still exploring different areas of the

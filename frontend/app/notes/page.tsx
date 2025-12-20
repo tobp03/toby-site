@@ -59,6 +59,10 @@ export default async function NotesPage({ searchParams }: NotesPageProps) {
     <main style={{ padding: 32, maxWidth: 900, margin: "0 auto" }}>
       <h1>Notes</h1>
 
+      <p className="notes-disclaimer">
+        Some notes may take a moment to load.
+      </p>
+
       {singleSubject ? (
         <section style={{ marginTop: 32 }}>
           <h2>Browse by topic</h2>

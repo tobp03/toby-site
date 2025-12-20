@@ -363,6 +363,10 @@ body {
   color: var(--muted);
 }
 
+.home-intro {
+  text-align: justify;
+}
+
 .theme-toggle {
   position: fixed;
   right: 22px;
@@ -403,6 +407,12 @@ body {
 .social-line img {
   width: 18px;
   height: 18px;
+}
+
+.notes-disclaimer {
+  font-size: 0.9rem;
+  color: var(--muted);
+  margin-bottom: 0.6rem;
 }
 
 .resume-page {
