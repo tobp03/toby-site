@@ -17,6 +17,30 @@ main p {
   margin-bottom: 1rem;
 }
 
+main {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (max-width: 768px) {
+  .katex-display {
+    font-size: 0.85rem;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .katex-display > .katex {
+    display: inline-block;
+    min-width: max-content;
+  }
+
+  .note-content h1::before {
+    content: none;
+    display: none;
+  }
+}
+
 main blockquote {
   margin: 16px 0;
   padding: 8px 16px;
@@ -53,11 +77,12 @@ main h1 + .meta-line {
   content: "#";
   position: absolute;
   left: -2.6rem;
-  top: -0.1rem;
-  font-size: 3.2rem;
-  font-weight: 800;
+  top: 50%;
+  font-size: 2.2rem;
+  font-weight: 500;
   line-height: 1;
   opacity: 0.85;
+  transform: translateY(-50%);
 }
 
 .toc {
