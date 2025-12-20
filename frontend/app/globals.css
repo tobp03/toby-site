@@ -303,8 +303,9 @@ body {
 a {
   color: inherit;
   text-decoration: underline;
-  text-decoration-thickness: 0.1px;
+  text-decoration-thickness: 1px;
   text-underline-offset: 3px;
+  text-decoration-skip-ink: none;
 }
 
 @media (max-width: 768px) {
@@ -527,9 +528,24 @@ a {
   padding-right: 6px;
 }
 
+.project-figure {
+  margin: 0 0 16px;
+}
+
+.project-figure figcaption {
+  margin-top: 8px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
 .project-panel-body img {
   max-width: 100%;
   height: auto;
+  max-height: 360px;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
   border-radius: 10px;
   border: 1px solid color-mix(in srgb, var(--foreground) 15%, transparent);
 }

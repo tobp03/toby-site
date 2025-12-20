@@ -122,6 +122,20 @@ export default function ProjectsList({ items }: ProjectsListProps) {
               <ReactMarkdown
                 remarkPlugins={[remarkGfm]}
                 rehypePlugins={[rehypeRaw]}
+                components={{
+                  img: ({ alt, title, ...props }) => {
+                    const caption = title || alt;
+                    if (!caption) {
+                      return <img {...props} alt={alt ?? ""} />;
+                    }
+                    return (
+                      <figure className="project-figure">
+                        <img {...props} alt={alt ?? ""} />
+                        <figcaption>{caption}</figcaption>
+                      </figure>
+                    );
+                  },
+                }}
               >
                 {activeItem.content}
               </ReactMarkdown>
