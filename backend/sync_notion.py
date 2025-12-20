@@ -408,68 +408,100 @@ def safe_filename(title: str, page_id: str) -> str:
     safe_title = title.replace("/", "-").strip() or "Untitled"
     return f"{safe_title} {page_id}.md"
 
+def extract_page_id(filename: str) -> Optional[str]:
+    match = re.search(r"([0-9a-f]{32}|[0-9a-f]{8}(?:-[0-9a-f]{4}){3}-[0-9a-f]{12})\.md$", filename)
+    if not match:
+        return None
+    return match.group(1)
+
 
 # --------------------------------------------------
 # MAIN
 # --------------------------------------------------
 
-print("Retrieving database pages...")
+def main() -> None:
+    print("Retrieving database pages...")
 
-data = request_json("POST", f"/databases/{DATABASE_ID}/query", json={})
-pages = data.get("results", [])
+    data = request_json("POST", f"/databases/{DATABASE_ID}/query", json={})
+    pages = data.get("results", [])
 
-while data.get("has_more"):
-    cursor = data.get("next_cursor")
-    data = request_json("POST", f"/databases/{DATABASE_ID}/query", json={"start_cursor": cursor})
-    pages.extend(data.get("results", []))
-    time.sleep(0.1)
+    while data.get("has_more"):
+        cursor = data.get("next_cursor")
+        data = request_json("POST", f"/databases/{DATABASE_ID}/query", json={"start_cursor": cursor})
+        pages.extend(data.get("results", []))
+        time.sleep(0.1)
 
-print(f"Fetched {len(pages)} pages")
+    print(f"Fetched {len(pages)} pages")
 
-published_pages = []
-for page in pages:
-    status = get_status(page)
-    if status and status.strip().lower() == "published":
-        published_pages.append(page)
+    published_pages = []
+    for page in pages:
+        status = get_status(page)
+        if status and status.strip().lower() == "published":
+            published_pages.append(page)
 
-print(f"Publishing {len(published_pages)} pages")
+    print(f"Publishing {len(published_pages)} pages")
 
-for page in published_pages:
-    page_id = page["id"]
-    title = get_title(page) or "Untitled"
-    categories = get_categories(page)
-    created_date = iso_to_date(page.get("created_time"))
-    updated_date = iso_to_datetime(page.get("last_edited_time"))
+    updated_count = 0
+    skipped_count = 0
+    deleted_count = 0
+    expected_filenames = set()
+    for page in published_pages:
+        page_id = page["id"]
+        title = get_title(page) or "Untitled"
+        expected_filenames.add(safe_filename(title, page_id))
 
-    print(f"Exporting: {title} ({page_id})")
+    for page in published_pages:
+        page_id = page["id"]
+        title = get_title(page) or "Untitled"
+        categories = get_categories(page)
+        created_date = iso_to_date(page.get("created_time"))
+        updated_date = iso_to_datetime(page.get("last_edited_time"))
 
-    output_path = OUTPUT_DIR / safe_filename(title, page_id)
-    existing_md = output_path.read_text(encoding="utf-8") if output_path.exists() else None
+        print(f"Exporting: {title} ({page_id})")
 
-    existing_updated = parse_datetime(extract_existing_updated(existing_md)) if existing_md else None
-    incoming_updated = parse_datetime(updated_date)
-    if existing_updated and incoming_updated and existing_updated >= incoming_updated:
-        print(f"Skipping (up-to-date): {output_path.name}")
-        continue
+        output_path = OUTPUT_DIR / safe_filename(title, page_id)
+        existing_md = output_path.read_text(encoding="utf-8") if output_path.exists() else None
 
-    image_folder_name = safe_dirname(title)
-    image_dir = REPO_ROOT / "frontend/public/images" / image_folder_name
-    body_md = page_to_md(
-        page_id,
-        image_dir=image_dir,
-        image_folder_name=image_folder_name,
-    )
+        existing_updated = parse_datetime(extract_existing_updated(existing_md)) if existing_md else None
+        incoming_updated = parse_datetime(updated_date)
+        if existing_updated and incoming_updated and existing_updated >= incoming_updated:
+            print(f"Skipping (up-to-date): {output_path.name}")
+            skipped_count += 1
+            continue
 
-    final_md = transform(
-        body_md,
-        title=title,
-        subjects=["data science"],
-        topics=categories,
-        date=created_date,
-        updated=updated_date,
-        existing_md=existing_md,
-    )
+        image_folder_name = safe_dirname(title)
+        image_dir = REPO_ROOT / "frontend/public/images" / image_folder_name
+        body_md = page_to_md(
+            page_id,
+            image_dir=image_dir,
+            image_folder_name=image_folder_name,
+        )
 
-    output_path.write_text(final_md, encoding="utf-8")
+        final_md = transform(
+            body_md,
+            title=title,
+            subjects=["data science"],
+            topics=categories,
+            date=created_date,
+            updated=updated_date,
+            existing_md=existing_md,
+        )
 
-print(f"Export complete -> {OUTPUT_DIR}")
+        output_path.write_text(final_md, encoding="utf-8")
+        updated_count += 1
+
+    for md_path in OUTPUT_DIR.glob("*.md"):
+        if md_path.name not in expected_filenames:
+            md_path.unlink()
+            deleted_count += 1
+            print(f"Deleted (no longer in Notion): {md_path.name}")
+
+    print("Sync notice:")
+    print(f"Pages updated: {updated_count}")
+    print(f"Pages skipped: {skipped_count}")
+    print(f"Pages deleted: {deleted_count}")
+    print(f"Export complete -> {OUTPUT_DIR}")
+
+
+if __name__ == "__main__":
+    main()
