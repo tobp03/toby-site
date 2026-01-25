@@ -30,7 +30,7 @@
         <div class="resume-row-meta">2025-Present</div>
       </div>
       <div class="resume-row-right">
-        <div class="resume-row-title">MSc in Data Science</div>
+        <div class="resume-row-title">Data Science</div>
         <div class="resume-row-sub">University of Debrecen, Hungary</div>
       </div>
     </div>
@@ -40,7 +40,7 @@
         <div class="resume-row-meta">2020-2024</div>
       </div>
       <div class="resume-row-right">
-        <div class="resume-row-title">BSc in Mathematics</div>
+        <div class="resume-row-title">Mathematics</div>
         <div class="resume-row-sub">Parahyangan Catholic University, Indonesia</div>
         <div class="resume-row-note">Grade: 3.57 / 4.00</div>
       </div>

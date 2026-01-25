@@ -756,13 +756,41 @@ a {
   color: #5f5a52;
 }
 
-@media (max-width: 720px) {
+@media (max-width: 900px) {
+  .resume-page {
+    font-size: 0.92rem;
+    padding: 0 !important;
+    background: #fbfaf7;
+  }
+
+  .resume-page .resume-card {
+    padding: 18px 16px 24px;
+    border-radius: 0;
+    border: none;
+    box-shadow: none;
+    background: transparent;
+  }
+
+  .resume-name {
+    font-size: 1.6rem;
+  }
+
+  .resume-title {
+    font-size: 0.95rem;
+  }
+
+  .resume-section-title {
+    font-size: 0.95rem;
+    letter-spacing: 0.04em;
+  }
+
   .resume-contact-block {
     text-align: left;
   }
 
   .resume-row {
-    grid-template-columns: 1fr;
+    grid-template-columns: 80px 1fr;
+    gap: 10px;
   }
 
   .resume-row-left {
