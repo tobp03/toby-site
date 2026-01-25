@@ -595,6 +595,30 @@ a {
   background: var(--background);
 }
 
+.resume-download-row {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 12px;
+}
+
+.resume-download-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid #d7cfc2;
+  background: #fbfaf7;
+  color: #1f4e8c;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.resume-download-button:hover {
+  text-decoration: underline;
+}
+
 .resume-page .resume-card {
   background: #fbfaf7;
   color: #1d1b17;

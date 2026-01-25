@@ -16,9 +16,7 @@
   <div class="resume-rule"></div>
 
   <p class="resume-intro">
-  I am currently pursuing an MSc in Data Science at the University of Debrecen. I have experience as a research
-  assistant and contributed to a published paper on sign language recognition. My passion lies in learning and
-  understanding new tools on the market and applying them in new fields.
+I’m an MSc Data Science student at the University of Debrecen with research experience in sign language recognition, including a published paper. I enjoy working on applied ML projects and exploring different areas of data science while figuring out where I want to specialize long-term.
   </p>
 
 
@@ -67,14 +65,14 @@
 
   <section class="resume-section">
     <h2 class="resume-section-title">Projects</h2>
-    <div class="resume-row">
+      <div class="resume-row">
       <div class="resume-row-left">
-        <div class="resume-row-label">June 2025</div>
+        <div class="resume-row-label">Jan 2026</div>
       </div>
       <div class="resume-row-right">
-        <div class="resume-row-title">Live Sign Language Translation</div>
-        <div class="resume-row-sub">Pose estimation + sequence modeling + LLM refinement</div>
-        <div class="resume-row-note"><a href="https://github.com/tobp03/live-asl-translation">GitHub</a></div>
+        <div class="resume-row-title">Personal Website</div>
+        <div class="resume-row-sub">Notion-synced notes and a second-brain hub for projects</div>
+        <div class="resume-row-note"><a href="https://github.com/tobp03/toby-site">GitHub</a> | <a href="https://tobypurbojo.com">Web</a></div>
       </div>
     </div>
     <div class="resume-row">
@@ -87,6 +85,17 @@
         <div class="resume-row-note"><a href="https://github.com/tobp03/pdf-foodlabel-parser">GitHub</a></div>
       </div>
     </div>
+    <div class="resume-row">
+      <div class="resume-row-left">
+        <div class="resume-row-label">June 2025</div>
+      </div>
+      <div class="resume-row-right">
+        <div class="resume-row-title">Live Sign Language Translation</div>
+        <div class="resume-row-sub">Pose estimation + sequence modeling + LLM refinement</div>
+        <div class="resume-row-note"><a href="https://github.com/tobp03/live-asl-translation">GitHub</a></div>
+      </div>
+    </div>
+
   </section>
 
   <section class="resume-section">

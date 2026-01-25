@@ -12,6 +12,11 @@ export default function CVPage() {
 
   return (
     <main className="resume-page" style={{ padding: 36, maxWidth: 1040, margin: "0 auto" }}>
+      <div className="resume-download-row">
+        <a className="resume-download-button" href="/resume.pdf" download>
+          Download PDF
+        </a>
+      </div>
       <div className="resume-card">
         <ReactMarkdown
           remarkPlugins={[remarkGfm, remarkMath]}
