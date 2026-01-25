@@ -2,7 +2,7 @@
 
 /* Basic markdown readability */
 main h1 {
-  font-size: 2.2rem;
+  font-size: 2.45rem;
   margin-bottom: 0.35rem;
 }
 
@@ -71,6 +71,10 @@ main h1 + .meta-line {
 .note-content h1 {
   position: relative;
   margin-left: 0;
+  font-size: 2rem;
+  font-weight: 450;
+  margin-top: 2.2rem;
+  margin-bottom: 0.5rem;
 }
 
 .note-content h1::before {
@@ -83,6 +87,22 @@ main h1 + .meta-line {
   line-height: 1;
   opacity: 0.85;
   transform: translateY(-50%);
+}
+
+.note-content h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-top: 1.9rem;
+  margin-bottom: 0.4rem;
+  padding-bottom: 0.35rem;
+  border-bottom: 1px solid color-mix(in srgb, var(--foreground) 14%, transparent);
+}
+
+.note-content h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-top: 1.4rem;
+  margin-bottom: 0.35rem;
 }
 
 .toc {
@@ -162,7 +182,7 @@ main h1 + .meta-line {
 .notes-reader {
   display: flex;
   gap: 32px;
-  padding: 32px;
+  padding: 48px 32px 64px;
 }
 
 .notes-sidebar {
@@ -195,7 +215,15 @@ main h1 + .meta-line {
 
 .notes-content {
   width: 100%;
-  max-width: 900px;
+  max-width: 72ch;
+}
+
+.note-content {
+  line-height: 1.75;
+}
+
+.note-content p {
+  margin-block: 1.05rem;
 }
 
 @media (max-width: 1100px) {
@@ -260,11 +288,23 @@ main table code {
 }
 
 main aside {
-  margin: 16px 0;
-  padding: 16px 20px;
+  margin: 6px 0;
+  padding: 6px 12px 6px 16px;
   border-left: 4px solid var(--aside-border);
   background: var(--aside-bg);
-  border-radius: 10px;
+  border-radius: 8px;
+}
+
+main aside > *:first-child {
+  margin-top: 0;
+}
+
+main aside > *:last-child {
+  margin-bottom: 0;
+}
+
+main aside p {
+  margin-block: 0.4rem;
 }
 
 

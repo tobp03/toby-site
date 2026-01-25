@@ -12,12 +12,6 @@ type NotePageProps = {
   params: { slug: string } | Promise<{ slug: string }>;
 };
 
-type HeadingItem = {
-  level: 1 | 2;
-  text: string;
-  id: string;
-};
-
 function createSlugger() {
   const counts = new Map<string, number>();
   return (value: string) => {
@@ -30,36 +24,6 @@ function createSlugger() {
     counts.set(base, current + 1);
     return current === 0 ? base : `${base}-${current}`;
   };
-}
-
-function extractHeadings(content: string): HeadingItem[] {
-  const headings: HeadingItem[] = [];
-  const slugger = createSlugger();
-  const lines = content.split("\n");
-  let inCodeBlock = false;
-
-  for (const line of lines) {
-    if (line.startsWith("```")) {
-      inCodeBlock = !inCodeBlock;
-      continue;
-    }
-    if (inCodeBlock) continue;
-    if (line.startsWith("# ")) {
-      const text = line.slice(2).trim();
-      if (text) {
-        headings.push({ level: 1, text, id: slugger(text) });
-      }
-      continue;
-    }
-    if (line.startsWith("## ")) {
-      const text = line.slice(3).trim();
-      if (text) {
-        headings.push({ level: 2, text, id: slugger(text) });
-      }
-    }
-  }
-
-  return headings;
 }
 
 function getTextFromChildren(children: React.ReactNode): string {
@@ -83,30 +47,15 @@ export default async function NotePage({ params }: NotePageProps) {
       notFound();
     }
   })();
-  const headings = extractHeadings(note.content);
   const renderSlugger = createSlugger();
 
   return (
     <main className="notes-reader">
-      <aside className="notes-sidebar">
-        <nav className="notes-sidebar-nav" aria-label="Primary">
-          <Link href="/notes">Back</Link>
-        </nav>
-        {headings.length ? (
-          <nav className="toc" aria-label="Table of contents">
-            <h2>Contents</h2>
-            <ul>
-              {headings.map((heading) => (
-                <li key={heading.id} data-level={heading.level}>
-                  <a href={`#${heading.id}`}>{heading.text}</a>
-                </li>
-              ))}
-            </ul>
-          </nav>
-        ) : null}
-      </aside>
       <div className="notes-content-wrap">
         <div className="notes-content">
+          <nav className="notes-sidebar-nav" aria-label="Primary">
+            <Link href="/notes">Back</Link>
+          </nav>
           <h1>{note.data.title ?? note.slug}</h1>
           {(() => {
             const topics = note.data.topics ?? [];
