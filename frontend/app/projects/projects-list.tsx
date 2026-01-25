@@ -137,9 +137,10 @@ export default function ProjectsList({ items }: ProjectsListProps) {
                       }
                       return true;
                     });
-                    const hasImageNode = node?.children?.some(
-                      (child) => child.type === "image",
-                    );
+                    const hasImageNode = node?.children?.some((child) => {
+                      if (child.type !== "element") return false;
+                      return "tagName" in child && child.tagName === "img";
+                    });
                     const hasFigureOrImage = meaningfulChildren.some(
                       (child) =>
                         isValidElement(child) &&
