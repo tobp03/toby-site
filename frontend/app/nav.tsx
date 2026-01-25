@@ -16,9 +16,9 @@ export default function Nav() {
     <nav style={{ padding: 16, borderBottom: "1px solid #ccc" }}>
       <strong style={{ marginRight: 20 }}>Toby</strong>
       <Link href="/">Home</Link>{" "}
-      <Link href="/resume">Resume</Link>{" "}
       <Link href="/projects">Projects</Link>{" "}
-      <Link href="/notes">Notes</Link>
+      <Link href="/notes">Notes</Link>{" "}
+      <Link href="/resume">Resume</Link>
     </nav>
   );
 }

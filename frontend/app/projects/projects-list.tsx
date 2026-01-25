@@ -129,7 +129,7 @@ export default function ProjectsList({ items }: ProjectsListProps) {
                 remarkPlugins={[remarkGfm]}
                 rehypePlugins={[rehypeRaw]}
                 components={{
-                  p: ({ children }) => {
+                  p: ({ children, node }) => {
                     const childArray = Children.toArray(children);
                     const meaningfulChildren = childArray.filter((child) => {
                       if (typeof child === "string") {
@@ -137,11 +137,17 @@ export default function ProjectsList({ items }: ProjectsListProps) {
                       }
                       return true;
                     });
+                    const hasImageNode = node?.children?.some(
+                      (child) => child.type === "image",
+                    );
                     const hasFigureOrImage = meaningfulChildren.some(
                       (child) =>
                         isValidElement(child) &&
                         (child.type === "figure" || child.type === "img"),
                     );
+                    if (hasImageNode) {
+                      return <div>{children}</div>;
+                    }
                     if (
                       meaningfulChildren.length === 1 &&
                       isValidElement(meaningfulChildren[0]) &&

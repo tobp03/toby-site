@@ -18,10 +18,62 @@ export default async function NotesPage({ searchParams }: NotesPageProps) {
     ? decodeURIComponent(resolvedSearch.topic)
     : "";
 
+  const formatUpdated = (value?: string) => {
+    if (!value) return "";
+    const parsed = new Date(value);
+    if (Number.isNaN(parsed.getTime())) {
+      const cleaned = value.replace("T", " ").replace(/:\d{2}(?:\.\d+)?$/, "");
+      const datePart = cleaned.split(" ")[0] || "";
+      const [y, m, d] = datePart.split("-");
+      if (y && m && d) {
+        const months = [
+          "Jan",
+          "Feb",
+          "Mar",
+          "Apr",
+          "May",
+          "Jun",
+          "Jul",
+          "Aug",
+          "Sep",
+          "Oct",
+          "Nov",
+          "Dec",
+        ];
+        const idx = Number.parseInt(m, 10) - 1;
+        const mon = months[idx] || m;
+        return `${y}-${mon}-${d}`;
+      }
+      return cleaned;
+    }
+    const months = [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
+    ];
+    const year = parsed.getUTCFullYear();
+    const month = months[parsed.getUTCMonth()];
+    const day = String(parsed.getUTCDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  };
+
   const slugs = getNoteSlugs();
   const notes = slugs
     .map((slug) => getNoteBySlug(slug))
-    .sort((a, b) => (b.data.date ?? "").localeCompare(a.data.date ?? ""));
+    .sort((a, b) =>
+      (b.data.updated ?? b.data.date ?? "").localeCompare(
+        a.data.updated ?? a.data.date ?? "",
+      ),
+    );
 
   const subjectLabels = Array.from(
     new Set(notes.flatMap((note) => note.data.subjects ?? [])),
@@ -52,7 +104,9 @@ export default async function NotesPage({ searchParams }: NotesPageProps) {
     : notes;
 
   const sortedNotes = filteredNotes.sort((a, b) =>
-    (b.data.date ?? "").localeCompare(a.data.date ?? ""),
+    (b.data.updated ?? b.data.date ?? "").localeCompare(
+      a.data.updated ?? a.data.date ?? "",
+    ),
   );
 
   return (
@@ -117,19 +171,21 @@ export default async function NotesPage({ searchParams }: NotesPageProps) {
       )}
 
       <section style={{ marginTop: 24 }}>
-        <h2>Latest notes</h2>
+        <h2>Last updated notes</h2>
         <ul>
           {sortedNotes.map((note) => {
             const title = note.data.title ?? note.slug;
-            const date = note.data.date ?? "";
+            const updated = note.data.updated ?? note.data.date ?? "";
             const topics = note.data.topics ?? [];
             return (
               <li key={note.slug}>
                 <Link href={`/notes/${note.slug}`}>{title}</Link>
-                {(date || topics.length) ? (
+                {(updated || topics.length) ? (
                   <div className="meta-line">
-                    {date ? (
-                      <span className="meta-item meta-date">{date}</span>
+                    {updated ? (
+                      <span className="meta-item meta-date">
+                        {`Updated: ${formatUpdated(updated)}`}
+                      </span>
                     ) : null}
                     {topics.map((topic) => (
                       <span key={topic} className="meta-item">

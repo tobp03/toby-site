@@ -261,10 +261,10 @@ main table code {
 
 main aside {
   margin: 16px 0;
-  padding: 12px 16px;
+  padding: 16px 20px;
   border-left: 4px solid var(--aside-border);
   background: var(--aside-bg);
-  border-radius: 6px;
+  border-radius: 10px;
 }
 
 
@@ -275,16 +275,16 @@ main aside {
   --background: #21201f;
   --foreground: #ededed;
   --muted: color-mix(in srgb, #ededed 70%, transparent);
-  --aside-bg: #2e2e2e;
-  --aside-border: #222;
+  --aside-bg: #484848;
+  --aside-border: #343434;
 }
 
 [data-theme="light"] {
   --background: #f4f3ef;
   --foreground: #1c1b19;
   --muted: color-mix(in srgb, #1c1b19 60%, transparent);
-  --aside-bg: #ece8e2;
-  --aside-border: #c9c2b9;
+  --aside-bg: #e4ddd4;
+  --aside-border: #c0b6aa;
 }
 
 @theme inline {
@@ -596,11 +596,178 @@ a {
 }
 
 .resume-page .resume-card {
-  background: color-mix(in srgb, var(--background) 92%, white);
-  border: 1px solid color-mix(in srgb, var(--foreground) 18%, transparent);
+  background: #fbfaf7;
+  color: #1d1b17;
+  border: 1px solid #d7cfc2;
   border-radius: 12px;
-  padding: 28px 32px;
-  box-shadow: 0 10px 22px color-mix(in srgb, #000 28%, transparent);
+  padding: 32px 40px;
+  box-shadow: 0 14px 24px color-mix(in srgb, #000 18%, transparent);
+}
+
+.resume-classic {
+  font-size: 0.98rem;
+}
+
+.resume-classic a {
+  color: #1f4e8c;
+  text-decoration: none;
+}
+
+.resume-classic a:hover {
+  text-decoration: underline;
+}
+
+.resume-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.resume-name {
+  font-size: 2.1rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+.resume-title {
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin-top: 2px;
+}
+
+.resume-location {
+  margin-top: 6px;
+  color: #5f5a52;
+}
+
+.resume-contact-block {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  text-align: right;
+  font-size: 0.95rem;
+}
+
+.resume-rule {
+  margin: 16px 0 12px;
+  height: 3px;
+  background: #1f4e8c;
+}
+
+.resume-intro {
+  text-align: justify;
+  margin: 0 0 14px;
+  font-style: italic;
+}
+
+.resume-two-col {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  margin-bottom: 20px;
+}
+
+.resume-section {
+  margin-top: 18px;
+}
+
+.resume-section-title {
+  font-size: 1.05rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #1f4e8c;
+  border-bottom: 2px solid #1f4e8c;
+  padding-bottom: 4px;
+  margin-top: 0;
+  margin-bottom: 12px;
+}
+
+.resume-row {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 16px;
+  padding: 6px 0;
+}
+
+.resume-row-left {
+  text-align: right;
+  color: #6a645b;
+  font-size: 0.9rem;
+}
+
+.resume-row-label {
+  font-weight: 600;
+  color: #36322d;
+}
+
+.resume-row-right {
+  display: grid;
+  gap: 4px;
+}
+
+.resume-row-title {
+  font-weight: 600;
+}
+
+.resume-row-sub {
+  color: #5f5a52;
+}
+
+.resume-row-note {
+  color: #6f6a61;
+  font-size: 0.92rem;
+}
+
+.resume-bullets {
+  list-style: none;
+  margin-left: 1.2rem;
+  margin-bottom: 0.6rem;
+}
+
+.resume-bullets li {
+  position: relative;
+  padding-left: 14px;
+}
+
+.resume-bullets li::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  background: #1f4e8c;
+  position: absolute;
+  left: 0;
+  top: 0.6em;
+}
+
+.resume-skill-grid {
+  display: grid;
+  gap: 10px 16px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.resume-skill-title {
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+.resume-skill-items {
+  color: #5f5a52;
+}
+
+@media (max-width: 720px) {
+  .resume-contact-block {
+    text-align: left;
+  }
+
+  .resume-row {
+    grid-template-columns: 1fr;
+  }
+
+  .resume-row-left {
+    text-align: left;
+  }
 }
 
 .resume-page h1 {
@@ -674,30 +841,35 @@ a {
   font-weight: 600;
 }
 
-.resume-page ul {
-  list-style: none;
-  margin-left: 0;
+.resume-page ul:not(.resume-bullets) {
+  list-style: disc;
+  margin-left: 1.2rem;
   margin-bottom: 1rem;
 }
 
-.resume-page li {
+.resume-page ul:not(.resume-bullets) li {
   margin-bottom: 0.5rem;
 }
 
-.resume-page li::before {
-  content: "-";
-  margin-right: 8px;
-  color: var(--muted);
-}
-
 .note-content ul {
-  list-style: none;
-  margin-left: 0;
+  list-style: disc;
+  margin-left: 1.25rem;
   margin-bottom: 1rem;
 }
 
-.note-content li::before {
-  content: "-";
-  margin-right: 8px;
-  color: var(--muted);
+.note-content ul ul {
+  margin-top: 0.35rem;
+  margin-left: 1.25rem;
+  list-style: circle;
+}
+
+.note-content ol {
+  list-style: decimal;
+  margin-left: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.note-content ol ol {
+  margin-top: 0.35rem;
+  margin-left: 1.25rem;
 }

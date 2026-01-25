@@ -11,7 +11,7 @@ export default function CVPage() {
   const markdown = fs.readFileSync(filePath, "utf8");
 
   return (
-    <main className="resume-page" style={{ padding: 32, maxWidth: 900, margin: "0 auto" }}>
+    <main className="resume-page" style={{ padding: 36, maxWidth: 1040, margin: "0 auto" }}>
       <div className="resume-card">
         <ReactMarkdown
           remarkPlugins={[remarkGfm, remarkMath]}

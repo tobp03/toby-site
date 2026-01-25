@@ -209,7 +209,7 @@ export default function Home() {
 
       {/* Latest Notes */}
       <section>
-        <h2>Latest Notes / Blog</h2>
+        <h2>Last updated notes</h2>
         {notes.length ? (
           <ul>
             {notes.map((note) => (

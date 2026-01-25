@@ -275,7 +275,8 @@ def block_to_md(
     md = ""
     block_type = block.get("type")
     data = block.get(block_type, {})
-    pad = "  " * indent
+    pad = "    " * indent
+    paragraph_pad = ("    " * indent) if indent else ""
     handled_children = False
 
     def sanitize_cell(value: str) -> str:
@@ -285,7 +286,10 @@ def block_to_md(
         return rich_text(data.get("rich_text", []))
 
     if block_type == "paragraph":
-        md += pad + text() + "\n\n"
+        if indent:
+            md += paragraph_pad + text() + "\n" + pad + "\n"
+        else:
+            md += paragraph_pad + text() + "\n\n"
     elif block_type == "heading_1":
         md += "# " + text() + "\n\n"
     elif block_type == "heading_2":
@@ -370,7 +374,12 @@ def block_to_md(
 
     if block.get("has_children") and not handled_children:
         child_indent = indent + 1 if block_type and block_type.endswith("_list_item") else indent
-        for child in list_block_children(block["id"]):
+        children = list_block_children(block["id"])
+        if block_type and block_type.endswith("_list_item"):
+            first_child_type = children[0].get("type") if children else None
+            if first_child_type == "paragraph":
+                md += ("    " * child_indent) + "\n"
+        for child in children:
             md += block_to_md(
                 child,
                 child_indent,
@@ -394,13 +403,19 @@ def page_to_md(
     image_folder_name: Optional[str] = None,
 ) -> str:
     md = ""
+    prev_was_list_item = False
     for block in list_block_children(page_id):
+        block_type = block.get("type")
+        current_is_list_item = bool(block_type and block_type.endswith("_list_item"))
+        if prev_was_list_item and not current_is_list_item:
+            md += "\n"
         md += block_to_md(
             block,
             image_dir=image_dir,
             image_url_prefix=image_url_prefix,
             image_folder_name=image_folder_name,
         )
+        prev_was_list_item = current_is_list_item
     return md
 
 

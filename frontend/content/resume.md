@@ -1,119 +1,153 @@
-<div class="resume-hero">
-  <h1 class="resume-name"><span class="resume-name-accent">Toby</span> Purbojo</h1>
-  <p class="resume-tagline">MSc Data Science student • Debrecen, Hungary</p>
-  <div class="resume-contact-row">
-    <span class="theme-icon" aria-hidden="true">
-      <img class="icon-light" src="/mail_light.svg" alt="" />
-      <img class="icon-dark" src="/mail_dark.svg" alt="" />
-    </span>
-    <a href="mailto:tobyspurbojo@gmail.com">tobypurbojo1@gmail.com</a>
-  </div>
-  <div class="resume-contact-row resume-contact-links">
-    <a href="https://github.com/tobp03" class="resume-contact-link">
-      <span class="theme-icon" aria-hidden="true">
-        <img class="icon-light" src="/github_light.svg" alt="" />
-        <img class="icon-dark" src="/github_dark.svg" alt="" />
-      </span>
-      GitHub
-    </a>
-    <a href="https://www.linkedin.com/in/tobypurbojo/" class="resume-contact-link">
-      <span class="theme-icon" aria-hidden="true">
-        <img class="icon-light" src="/linkedin_light.svg" alt="" />
-        <img class="icon-dark" src="/linkedin_dark.svg" alt="" />
-      </span>
-      LinkedIn
-    </a>
-  </div>
+<div class="resume-classic">
+  <header class="resume-header">
+    <div>
+      <div class="resume-name">Toby Purbojo</div>
+      <div class="resume-title">Data Scientist</div>
+      <div class="resume-location">Debrecen, Hungary</div>
+    </div>
+    <div class="resume-contact-block">
+      <a href="https://tobypurbojo.com/">tobypurbojo.com</a>
+      <a href="mailto:tobyspurbojo@gmail.com">tobypurbojo1@gmail.com</a>
+      <a href="https://github.com/tobp03">github.com/tobp03</a>
+      <a href="https://www.linkedin.com/in/tobypurbojo/">linkedin.com/in/tobypurbojo</a>
+    </div>
+  </header>
+
+  <div class="resume-rule"></div>
+
+  <p class="resume-intro">
+  I am currently pursuing an MSc in Data Science at the University of Debrecen. I have experience as a research
+  assistant and contributed to a published paper on sign language recognition. My passion lies in learning and
+  understanding new tools on the market and applying them in new fields.
+  </p>
+
+
+  <section class="resume-section">
+    <h2 class="resume-section-title">Education</h2>
+    <div class="resume-row">
+      <div class="resume-row-left">
+        <div class="resume-row-label">MSc</div>
+        <div class="resume-row-meta">2025-Present</div>
+      </div>
+      <div class="resume-row-right">
+        <div class="resume-row-title">MSc in Data Science</div>
+        <div class="resume-row-sub">University of Debrecen, Hungary</div>
+      </div>
+    </div>
+    <div class="resume-row">
+      <div class="resume-row-left">
+        <div class="resume-row-label">BSc</div>
+        <div class="resume-row-meta">2020-2024</div>
+      </div>
+      <div class="resume-row-right">
+        <div class="resume-row-title">BSc in Mathematics</div>
+        <div class="resume-row-sub">Parahyangan Catholic University, Indonesia</div>
+        <div class="resume-row-note">Grade: 3.57 / 4.00</div>
+      </div>
+  </section>
+
+  <section class="resume-section">
+    <h2 class="resume-section-title">Experience</h2>
+    <div class="resume-row">
+      <div class="resume-row-left">
+        <div class="resume-row-label">2023-2024</div>
+        <div class="resume-row-meta">Bandung</div>
+      </div>
+      <div class="resume-row-right">
+        <div class="resume-row-title">Research Assistant</div>
+        <div class="resume-row-sub">Parahyangan Catholic University</div>
+        <ul class="resume-bullets">
+          <li>Summarized machine learning methods for mathematics student studies.</li>
+          <li>Developed a Python algorithm using reinforcement learning concepts to automate thesis defense examiner assignments.</li>
+          <li>Supported drone-based wave image capture for wave simulation research.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="resume-section">
+    <h2 class="resume-section-title">Projects</h2>
+    <div class="resume-row">
+      <div class="resume-row-left">
+        <div class="resume-row-label">June 2025</div>
+      </div>
+      <div class="resume-row-right">
+        <div class="resume-row-title">Live Sign Language Translation</div>
+        <div class="resume-row-sub">Pose estimation + sequence modeling + LLM refinement</div>
+        <div class="resume-row-note"><a href="https://github.com/tobp03/live-asl-translation">GitHub</a></div>
+      </div>
+    </div>
+    <div class="resume-row">
+      <div class="resume-row-left">
+        <div class="resume-row-label">Nov 2025</div>
+      </div>
+      <div class="resume-row-right">
+        <div class="resume-row-title">PDF Food Label Extraction</div>
+        <div class="resume-row-sub">OCR + extraction pipeline, FastAPI + React</div>
+        <div class="resume-row-note"><a href="https://github.com/tobp03/pdf-foodlabel-parser">GitHub</a></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="resume-section">
+    <h2 class="resume-section-title">Publications</h2>
+    <div class="resume-row">
+      <div class="resume-row-left">
+        <div class="resume-row-label">2025</div>
+        <div class="resume-row-meta">Journal</div>
+      </div>
+      <div class="resume-row-right">
+        <div class="resume-row-title">Comparing preprocessing methods for pose-based sign language recognition using GRU and LSTM models</div>
+        <div class="resume-row-sub">Purbojo, T., & Wijaya, A.</div>
+        <div class="resume-row-note">Advance Sustainable Science, Engineering and Technology, 7(2), 02502017</div>
+        <div class="resume-row-note">DOI: https://doi.org/10.26877/sj5scb03</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="resume-section">
+    <h2 class="resume-section-title">Skills</h2>
+    <div class="resume-skill-grid">
+      <div>
+        <div class="resume-skill-title">Programming</div>
+        <div class="resume-skill-items">Python, R, SQL</div>
+      </div>
+      <div>
+        <div class="resume-skill-title">Visualization</div>
+        <div class="resume-skill-items">Tableau, Matplotlib</div>
+      </div>
+      <div>
+        <div class="resume-skill-title">Documentation</div>
+        <div class="resume-skill-items">LaTeX</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="resume-section">
+    <h2 class="resume-section-title">Recognition</h2>
+    <ul class="resume-bullets">
+      <li>Stipendium Hungaricum Awardee — Tempus Public Foundation (Sep 2025).</li>
+      <li>Best presenter award (3rd place) — Thesis day Parahyangan Catholic University.</li>
+      <li>LOGIKA UI 2024 Statistics Team Competition — Semifinalist (Top 20 teams).</li>
+      <li>LOGIKA UI 2023 Statistics Team Competition — Semifinalist (Top 20 teams).</li>
+    </ul>
+  </section>
+
+  <section class="resume-section">
+    <h2 class="resume-section-title">Certifications</h2>
+    <ul class="resume-bullets">
+      <li>Azure Data Fundamentals (DP900) — Microsoft.</li>
+      <li>Deep Learning Fundamentals — NVIDIA.</li>
+      <li>International Specialist in Data Modelling (Python) — PASAS Institute.</li>
+      <li>International Specialist in Data Visualization (Tableau) — PASAS Institute.</li>
+    </ul>
+  </section>
+
+  <section class="resume-section">
+    <h2 class="resume-section-title">Languages</h2>
+    <ul class="resume-bullets">
+      <li>Indonesian — Native.</li>
+      <li>English — C1 (IELTS 7.5).</li>
+    </ul>
+  </section>
 </div>
-
----
-
-## Education & Training
-
-**MSc in Data Science**  
-University of Debrecen, Hungary
-*Sep 2025 – Present*
-
-**BSc in Mathematics**  
-Parahyangan Catholic University, Indonesia  
-*Jul 2020 – Jul 2024*  
-- Final Grade: **3.57 / 4.00**
-
-**Deep Learning Sprint**  
-Gadjah Mada University & NVIDIA  
-*Oct 2021 – Nov 2021*  
-
----
-
-## Projects
-
-**Live Sign Language Translation**  
-*Jan 2025 – Jun 2025*  
-- Built a full pipeline translating American Sign Language into text  
-- Used pose estimation, deep learning, and a large language model for sentence refinement  
-- Based on the Citizen ASL Dataset with real-time webcam translation  
-- GitHub: https://github.com/tobp03/live-asl-translation
-
-**PDF Food Label Extraction**  
-*Oct 2025 – Nov 2025*  
-- Extracts allergens and nutritional values from food-label PDFs  
-- React frontend for upload and visualization  
-- FastAPI backend for PDF parsing and extraction  
-- Uses GPT models to validate allergens and nutrition from OCR/text  
-- GitHub: https://github.com/tobp03/pdf-foodlabel-parser  
-- Live site: https://tobyp.fun/
-
----
-
-## Publications
-
-**Comparing preprocessing methods for pose-based sign language recognition using GRU and LSTM models**  
-Purbojo, T., & Wijaya, A. (2025)  
-*Enhancing pose-based sign language recognition: A comparative study of preprocessing strategies with GRU and LSTM*  
-*Advance Sustainable Science, Engineering and Technology, 7(2), 02502017*  
-DOI: https://doi.org/10.26877/sj5scb03
-
----
-
-## Work Experience
-
-
-**Research Assistant**  
-Parahyangan Catholic University, Bandung, Indonesia  
-*Jan 2023 – Jan 2024*  
-- Created concise summaries of machine learning methods for mathematics studies  
-- Developed a Python algorithm using reinforcement learning concepts to automate thesis defense examiner assignments  
-- Assisted with drone-based wave image capture for wave simulation research
-
-
----
-
-## Skills
-
-- **Programming:** Python, R, SQL (Beginner–Intermediate)  
-- **Data Analysis & Modeling:** Python  
-- **Data Visualization:** Tableau  
-- **Documentation:** LaTeX
-
----
-
-## Honours & Awards
-
-- **Stipendium Hungaricum Awardee** — Tempus Public Foundation (Sep 2025)  
-- **LOGIKA UI 2024 Statistics Competition – Semifinalist**  
-  - Top 20 teams  
-  - Solved statistical problems and a credit scoring case study
-
----
-
-## Language Skills
-
-- **Indonesian:** Native  
-- **English:** C1–C2 (professional working proficiency)
----
-
-## Certifications
-
-- **Deep Learning Fundamentals** — Gadjah Mada University & NVIDIA  
-- **International Specialist in Data Modelling (Python)** — PASAS Institute  
-- **International Specialist in Data Visualization (Tableau)** — PASAS Institute
