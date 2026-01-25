@@ -55,6 +55,36 @@ def request_json(method: str, path: str, *, json: Optional[dict] = None, params:
 
 
 def rich_text(rt: List[dict]) -> str:
+    def apply_annotations(text: str, annotations: dict, link_url: Optional[str]) -> str:
+        if not text:
+            return ""
+
+        if text.isspace():
+            return text
+
+        leading_len = len(text) - len(text.lstrip())
+        trailing_len = len(text) - len(text.rstrip())
+        leading = text[:leading_len]
+        trailing = text[len(text) - trailing_len:] if trailing_len else ""
+        core = text[leading_len:len(text) - trailing_len] if trailing_len else text[leading_len:]
+
+        if not core:
+            return text
+
+        if annotations.get("code"):
+            core = "`" + core.replace("`", "\\`") + "`"
+        if annotations.get("bold"):
+            core = f"**{core}**"
+        if annotations.get("italic"):
+            core = f"*{core}*"
+        if annotations.get("strikethrough"):
+            core = f"~~{core}~~"
+        if annotations.get("underline"):
+            core = f"<u>{core}</u>"
+        if link_url:
+            core = f"[{core}]({link_url})"
+        return f"{leading}{core}{trailing}"
+
     parts = []
     for token in rt:
         token_type = token.get("type")
@@ -63,11 +93,19 @@ def rich_text(rt: List[dict]) -> str:
             parts.append(f"${expr}$")
             continue
 
+        annotations = token.get("annotations", {})
+        link_url = None
+
         if token_type == "text":
-            parts.append(token.get("text", {}).get("content", ""))
+            text_data = token.get("text", {})
+            content = text_data.get("content", "")
+            link = text_data.get("link")
+            link_url = link.get("url") if link else None
+            parts.append(apply_annotations(content, annotations, link_url))
             continue
 
-        parts.append(token.get("plain_text", ""))
+        content = token.get("plain_text", "")
+        parts.append(apply_annotations(content, annotations, link_url))
     return "".join(parts)
 
 
