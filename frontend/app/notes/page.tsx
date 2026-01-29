@@ -176,24 +176,13 @@ export default async function NotesPage({ searchParams }: NotesPageProps) {
           {sortedNotes.map((note) => {
             const title = note.data.title ?? note.slug;
             const updated = note.data.updated ?? note.data.date ?? "";
-            const topics = note.data.topics ?? [];
+            const dateLabel = updated ? formatUpdated(updated) : "";
             return (
               <li key={note.slug}>
-                <Link href={`/notes/${note.slug}`}>{title}</Link>
-                {(updated || topics.length) ? (
-                  <div className="meta-line">
-                    {updated ? (
-                      <span className="meta-item meta-date">
-                        {`Updated: ${formatUpdated(updated)}`}
-                      </span>
-                    ) : null}
-                    {topics.map((topic) => (
-                      <span key={topic} className="meta-item">
-                        {topic}
-                      </span>
-                    ))}
-                  </div>
-                ) : null}
+                <Link href={`/notes/${note.slug}`}>
+                  {dateLabel ? `${dateLabel} \u2022 ` : ""}
+                  {title}
+                </Link>
               </li>
             );
           })}
