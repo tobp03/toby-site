@@ -11,4 +11,4 @@ Before this project, I worked on isolated sign language recognition for my bache
 
 By itself, isolated sign language recognition is not that practical. It can only recognize one sign at a time.
 
-In this project, the sign language translation is built on an ISLR model, combined with simple loops, a few fixed rules to separate signs, and an LLM to turn the recognized signs into proper English.
+This led to the idea behind this project. With the loops, a few fixed rules to separate signs and LLM to refine sentence, the sign language translation system was built.
