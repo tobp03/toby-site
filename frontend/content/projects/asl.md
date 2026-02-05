@@ -11,4 +11,4 @@ Before this project, I worked on isolated sign language recognition for my bache
 
 By itself, isolated sign language recognition is not that practical. It can only recognize one sign at a time.
 
-This led to the idea behind this project. With the loops, a few fixed rules to separate signs and LLM to refine sentence, the sign language translation system was built.
+This led to the idea behind this project. The sign language translation system is built using loops, fixed rules to separate signs, and LLM to refine sentences.
