@@ -39,3 +39,5 @@ scripts/
 Thumbs.db
 .vscode/
 .idea/
+
+frontend/content/notes/

@@ -2,7 +2,9 @@
 title: "Sign Language Translation "
 git_url:"https://github.com/tobp03/live-asl-translation"
 date: "2025-06-08"
-category: ['Computer Vision','Deep Learning']
+category: ['Computer Vision','Deep Learning','Time Series Modelling']
+tools: ['Python','Tensorflow']
+one_line: "A sign language translation system that segments isolated signs and refines them into coherent sentences with an LLM."
 ---
 
 ![Sign Language Translation Demo](/images/projects/asldemo.gif)

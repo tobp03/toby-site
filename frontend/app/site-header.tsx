@@ -7,7 +7,6 @@ const NAV_ITEMS = [
   { href: "/", label: "Home" },
   { href: "/projects", label: "Projects" },
   { href: "/notes", label: "Notes" },
-  { href: "/resume", label: "Resume" },
 ];
 
 function isActive(pathname: string, href: string) {

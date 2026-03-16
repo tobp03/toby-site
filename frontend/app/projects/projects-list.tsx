@@ -11,6 +11,9 @@ export type ProjectItem = {
   title: string;
   date: string;
   dateLabel: string;
+  category: string[];
+  tools: string[];
+  oneLine: string;
   content: string;
   gitUrl?: string;
   liveUrl?: string;
@@ -22,22 +25,20 @@ type ProjectsListProps = {
 
 export default function ProjectsList({ items }: ProjectsListProps) {
   const [activeId, setActiveId] = useState<string | null>(null);
+  const [dismissedQueryId, setDismissedQueryId] = useState<string | null>(null);
   const searchParams = useSearchParams();
-  const activeItem = items.find((item) => item.id === activeId) ?? null;
-
-  useEffect(() => {
-    const projectParam = searchParams.get("project");
-    if (projectParam) {
-      setActiveId(projectParam);
-      return;
-    }
-    setActiveId(null);
-  }, [searchParams]);
+  const projectParam = searchParams.get("project");
+  const resolvedActiveId =
+    activeId ?? (projectParam && projectParam !== dismissedQueryId ? projectParam : null);
+  const activeItem = items.find((item) => item.id === resolvedActiveId) ?? null;
 
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
         setActiveId(null);
+        if (projectParam) {
+          setDismissedQueryId(projectParam);
+        }
       }
     };
 
@@ -48,36 +49,57 @@ export default function ProjectsList({ items }: ProjectsListProps) {
     return () => {
       window.removeEventListener("keydown", onKeyDown);
     };
-  }, [activeItem]);
+  }, [activeItem, projectParam]);
 
   if (!items.length) {
     return <p>Coming soon...</p>;
   }
 
+  const openProject = (id: string) => {
+    setDismissedQueryId(null);
+    setActiveId(id);
+  };
+
+  const closeProject = () => {
+    setActiveId(null);
+    if (projectParam) {
+      setDismissedQueryId(projectParam);
+    }
+  };
+
   return (
     <>
-      <ul className="projects-list">
+      <div className="project-cards">
         {items.map((item) => (
-          <li key={item.id}>
-            <span className="note-updated">{item.dateLabel}</span>{" "}
-            <span aria-hidden="true">•</span>{" "}
-            <button
-              type="button"
-              className="project-link"
-              onClick={() => setActiveId(item.id)}
-            >
-              {item.title}
-            </button>
-          </li>
+          <button
+            key={item.id}
+            type="button"
+            className="project-card project-card-button project-card-projects"
+            onClick={() => openProject(item.id)}
+          >
+            <h2>{item.title}</h2>
+            <p className="project-card-date">{item.dateLabel}</p>
+            <p className="project-card-summary">
+              {item.oneLine || "Open project details"}
+            </p>
+            <p className="project-card-tools">{item.tools.join(" • ")}</p>
+            <div className="project-card-badges">
+              {item.category.map((category) => (
+                <span key={category} className="project-card-badge">
+                  {category}
+                </span>
+              ))}
+            </div>
+          </button>
         ))}
-      </ul>
+      </div>
 
       {activeItem ? (
         <div className="project-modal" role="dialog" aria-modal="true">
           <button
             type="button"
             className="project-overlay"
-            onClick={() => setActiveId(null)}
+            onClick={closeProject}
             aria-label="Close project details"
           />
           <div className="project-panel">
@@ -85,6 +107,18 @@ export default function ProjectsList({ items }: ProjectsListProps) {
               <div>
                 <p className="project-panel-date">{activeItem.dateLabel}</p>
                 <h2>{activeItem.title}</h2>
+                <div className="project-meta">
+                  {activeItem.tools.length ? (
+                    <span className="project-meta-chip">
+                      Tools: {activeItem.tools.join(" • ")}
+                    </span>
+                  ) : null}
+                  {activeItem.category.length ? (
+                    <span className="project-meta-chip">
+                      Category: {activeItem.category.join(" • ")}
+                    </span>
+                  ) : null}
+                </div>
               </div>
               <div className="project-panel-actions">
                 {activeItem.gitUrl ? (
@@ -118,7 +152,7 @@ export default function ProjectsList({ items }: ProjectsListProps) {
                 <button
                   type="button"
                   className="project-close"
-                  onClick={() => setActiveId(null)}
+                  onClick={closeProject}
                 >
                   Close
                 </button>
