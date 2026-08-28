@@ -5,6 +5,7 @@ import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
 import rehypeRaw from "rehype-raw";
+import { withBasePath } from "../../lib/site";
 
 type AboutImage = {
   alt: string;
@@ -60,6 +61,18 @@ function MarkdownBlock({ markdown }: { markdown: string }) {
     <ReactMarkdown
       remarkPlugins={[remarkGfm, remarkMath]}
       rehypePlugins={[rehypeKatex, rehypeRaw]}
+      components={{
+        a: ({ href, ...props }) => (
+          <a {...props} href={href ? withBasePath(href) : href} />
+        ),
+        img: ({ src, alt, ...props }) => (
+          <img
+            {...props}
+            src={typeof src === "string" ? withBasePath(src) : undefined}
+            alt={alt ?? ""}
+          />
+        ),
+      }}
     >
       {markdown}
     </ReactMarkdown>
@@ -73,7 +86,7 @@ function MediaColumn({ images }: { images: AboutImage[] }) {
     <div className="about-media">
       {images.map((image) => (
         <figure key={`${image.src}-${image.alt}`} className="about-figure">
-          <img src={image.src} alt={image.alt} />
+          <img src={withBasePath(image.src)} alt={image.alt} />
         </figure>
       ))}
     </div>

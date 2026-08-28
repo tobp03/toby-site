@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { getNoteBySlug, getNoteSlugs } from "../lib/notes";
 import { getProjects } from "../lib/projects";
+import { withBasePath } from "../lib/site";
 
 export default function Home() {
   const formatUpdated = (value?: string) => {
@@ -75,8 +76,16 @@ export default function Home() {
           Find me on{" "}
           <a href="https://github.com/tobp03" aria-label="GitHub">
             <span className="theme-icon" aria-hidden="true">
-              <img className="icon-light" src="/github_light.svg" alt="" />
-              <img className="icon-dark" src="/github_dark.svg" alt="" />
+              <img
+                className="icon-light"
+                src={withBasePath("/github_light.svg")}
+                alt=""
+              />
+              <img
+                className="icon-dark"
+                src={withBasePath("/github_dark.svg")}
+                alt=""
+              />
             </span>
           </a>
           ,{" "}
@@ -85,15 +94,31 @@ export default function Home() {
             aria-label="LinkedIn"
           >
             <span className="theme-icon" aria-hidden="true">
-              <img className="icon-light" src="/linkedin_light.svg" alt="" />
-              <img className="icon-dark" src="/linkedin_dark.svg" alt="" />
+              <img
+                className="icon-light"
+                src={withBasePath("/linkedin_light.svg")}
+                alt=""
+              />
+              <img
+                className="icon-dark"
+                src={withBasePath("/linkedin_dark.svg")}
+                alt=""
+              />
             </span>
           </a>
           , and{" "}
           <a href="mailto:tobypurbojo1@gmail.com" aria-label="Email">
             <span className="theme-icon" aria-hidden="true">
-              <img className="icon-light" src="/mail_light.svg" alt="" />
-              <img className="icon-dark" src="/mail_dark.svg" alt="" />
+              <img
+                className="icon-light"
+                src={withBasePath("/mail_light.svg")}
+                alt=""
+              />
+              <img
+                className="icon-dark"
+                src={withBasePath("/mail_dark.svg")}
+                alt=""
+              />
             </span>
           </a>
         </p>

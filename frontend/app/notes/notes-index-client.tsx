@@ -1,0 +1,182 @@
+"use client";
+
+import Link from "next/link";
+import { useSearchParams } from "next/navigation";
+
+export type NotesIndexItem = {
+  slug: string;
+  title: string;
+  date: string;
+  updated: string;
+  subjects: string[];
+  topics: string[];
+};
+
+type NotesIndexClientProps = {
+  notes: NotesIndexItem[];
+};
+
+function formatLabel(value: string) {
+  return value
+    .split("-")
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+    .join(" ");
+}
+
+function formatUpdated(value?: string) {
+  if (!value) return "";
+  const parsed = new Date(value);
+  if (Number.isNaN(parsed.getTime())) {
+    const cleaned = value.replace("T", " ").replace(/:\d{2}(?:\.\d+)?$/, "");
+    const datePart = cleaned.split(" ")[0] || "";
+    const [y, m, d] = datePart.split("-");
+    if (y && m && d) {
+      const months = [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec",
+      ];
+      const idx = Number.parseInt(m, 10) - 1;
+      const mon = months[idx] || m;
+      return `${y}-${mon}-${d}`;
+    }
+    return cleaned;
+  }
+  const months = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+  const year = parsed.getUTCFullYear();
+  const month = months[parsed.getUTCMonth()];
+  const day = String(parsed.getUTCDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+}
+
+export default function NotesIndexClient({ notes }: NotesIndexClientProps) {
+  const searchParams = useSearchParams();
+  const activeTopic = searchParams.get("topic")
+    ? decodeURIComponent(searchParams.get("topic") as string)
+    : "";
+
+  const subjectLabels = Array.from(
+    new Set(notes.flatMap((note) => note.subjects)),
+  )
+    .sort()
+    .map((subject) => ({
+      value: subject,
+      label: formatLabel(subject),
+    }));
+
+  const singleSubject = subjectLabels.length === 1 ? subjectLabels[0] : null;
+  const notesForSubject = singleSubject
+    ? notes.filter((note) => note.subjects.includes(singleSubject.value))
+    : [];
+  const topicOptions = singleSubject
+    ? Array.from(new Set(notesForSubject.flatMap((note) => note.topics))).sort(
+        (a, b) => a.localeCompare(b),
+      )
+    : [];
+  const filteredNotes = singleSubject
+    ? activeTopic
+      ? notesForSubject.filter((note) => note.topics.includes(activeTopic))
+      : notesForSubject
+    : notes;
+
+  const sortedNotes = [...filteredNotes].sort((a, b) =>
+    (b.updated || b.date).localeCompare(a.updated || a.date),
+  );
+
+  return (
+    <>
+      {singleSubject ? (
+        <section style={{ marginTop: 32 }}>
+          <h2>Browse by topic</h2>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+            <Link
+              href="/notes"
+              style={{
+                padding: "6px 12px",
+                border: "1px solid #ccc",
+                borderRadius: 999,
+                textDecoration: "none",
+              }}
+            >
+              All topics
+            </Link>
+            {topicOptions.map((topic) => (
+              <Link
+                key={topic}
+                href={`/notes?topic=${encodeURIComponent(topic)}`}
+                style={{
+                  padding: "6px 12px",
+                  border: "1px solid #ccc",
+                  borderRadius: 999,
+                  textDecoration: "none",
+                }}
+              >
+                {formatLabel(topic)}
+              </Link>
+            ))}
+          </div>
+        </section>
+      ) : (
+        <section style={{ marginTop: 32 }}>
+          <h2>Browse by subject</h2>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+            {subjectLabels.map((subject) => (
+              <Link
+                key={subject.value}
+                href={`/notes/subject/${encodeURIComponent(subject.value)}`}
+                style={{
+                  padding: "6px 12px",
+                  border: "1px solid #ccc",
+                  borderRadius: 999,
+                  textDecoration: "none",
+                }}
+              >
+                {subject.label}
+              </Link>
+            ))}
+          </div>
+        </section>
+      )}
+
+      <section style={{ marginTop: 24 }}>
+        <h2>Last updated notes</h2>
+        <ul>
+          {sortedNotes.map((note) => {
+            const updated = note.updated || note.date;
+            const dateLabel = updated ? formatUpdated(updated) : "";
+            return (
+              <li key={note.slug}>
+                <Link href={`/notes/${note.slug}`}>
+                  {dateLabel ? `${dateLabel} \u2022 ` : ""}
+                  {note.title}
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
+      </section>
+    </>
+  );
+}

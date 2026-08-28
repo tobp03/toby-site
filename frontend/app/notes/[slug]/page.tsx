@@ -6,11 +6,16 @@ import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
 import rehypeRaw from "rehype-raw";
 import { notFound } from "next/navigation";
-import { getNoteBySlug } from "../../../lib/notes";
+import { getNoteBySlug, getNoteSlugs } from "../../../lib/notes";
+import { withBasePath } from "../../../lib/site";
 
 type NotePageProps = {
   params: { slug: string } | Promise<{ slug: string }>;
 };
+
+export function generateStaticParams() {
+  return getNoteSlugs().map((slug) => ({ slug }));
+}
 
 function createSlugger() {
   const counts = new Map<string, number>();
@@ -91,6 +96,9 @@ export default async function NotePage({ params }: NotePageProps) {
               remarkPlugins={[remarkGfm, remarkMath]}
               rehypePlugins={[rehypeKatex, rehypeRaw]}
               components={{
+                a: ({ href, ...props }) => (
+                  <a {...props} href={href ? withBasePath(href) : href} />
+                ),
                 h1({ children }) {
                   const text = getTextFromChildren(children);
                   const id = renderSlugger(text);
@@ -101,6 +109,13 @@ export default async function NotePage({ params }: NotePageProps) {
                   const id = renderSlugger(text);
                   return <h2 id={id}>{children}</h2>;
                 },
+                img: ({ src, alt, ...props }) => (
+                  <img
+                    {...props}
+                    src={typeof src === "string" ? withBasePath(src) : undefined}
+                    alt={alt ?? ""}
+                  />
+                ),
               }}
             >
               {note.content}

@@ -5,6 +5,7 @@ import { useSearchParams } from "next/navigation";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
+import { withBasePath } from "../../lib/site";
 
 export type ProjectItem = {
   id: string;
@@ -130,8 +131,16 @@ export default function ProjectsList({ items }: ProjectsListProps) {
                     className="project-icon-link"
                   >
                     <span className="theme-icon" aria-hidden="true">
-                      <img className="icon-light" src="/github_light.svg" alt="" />
-                      <img className="icon-dark" src="/github_dark.svg" alt="" />
+                      <img
+                        className="icon-light"
+                        src={withBasePath("/github_light.svg")}
+                        alt=""
+                      />
+                      <img
+                        className="icon-dark"
+                        src={withBasePath("/github_dark.svg")}
+                        alt=""
+                      />
                     </span>
                   </a>
                 ) : null}
@@ -144,8 +153,16 @@ export default function ProjectsList({ items }: ProjectsListProps) {
                     className="project-icon-link"
                   >
                     <span className="theme-icon" aria-hidden="true">
-                      <img className="icon-light" src="/play_light.svg" alt="" />
-                      <img className="icon-dark" src="/play_dark.svg" alt="" />
+                      <img
+                        className="icon-light"
+                        src={withBasePath("/play_light.svg")}
+                        alt=""
+                      />
+                      <img
+                        className="icon-dark"
+                        src={withBasePath("/play_dark.svg")}
+                        alt=""
+                      />
                     </span>
                   </a>
                 ) : null}
@@ -198,11 +215,29 @@ export default function ProjectsList({ items }: ProjectsListProps) {
                   img: ({ alt, title, ...props }) => {
                     const caption = title || alt;
                     if (!caption) {
-                      return <img {...props} alt={alt ?? ""} />;
+                      return (
+                        <img
+                          {...props}
+                          src={
+                            typeof props.src === "string"
+                              ? withBasePath(props.src)
+                              : undefined
+                          }
+                          alt={alt ?? ""}
+                        />
+                      );
                     }
                     return (
                       <figure className="project-figure">
-                        <img {...props} alt={alt ?? ""} />
+                        <img
+                          {...props}
+                          src={
+                            typeof props.src === "string"
+                              ? withBasePath(props.src)
+                              : undefined
+                          }
+                          alt={alt ?? ""}
+                        />
                         <figcaption>{caption}</figcaption>
                       </figure>
                     );

@@ -1,10 +1,11 @@
+import { Suspense } from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getNoteBySlug, getNoteSlugs } from "../../../../lib/notes";
+import SubjectNotesClient from "./subject-notes-client";
 
 type SubjectPageProps = {
   params: { subject: string } | Promise<{ subject: string }>;
-  searchParams?: { topic?: string } | Promise<{ topic?: string }>;
 };
 
 function formatLabel(value: string) {
@@ -16,14 +17,9 @@ function formatLabel(value: string) {
 
 export default async function SubjectPage({
   params,
-  searchParams,
 }: SubjectPageProps) {
   const resolvedParams = await Promise.resolve(params);
   const subject = decodeURIComponent(resolvedParams.subject);
-  const resolvedSearch = await Promise.resolve(searchParams);
-  const activeTopic = resolvedSearch?.topic
-    ? decodeURIComponent(resolvedSearch.topic)
-    : "";
 
   const notes = getNoteSlugs()
     .map((slug) => getNoteBySlug(slug))
@@ -33,17 +29,12 @@ export default async function SubjectPage({
     notFound();
   }
 
-  const topicOptions = Array.from(
-    new Set(notes.flatMap((note) => note.data.topics ?? [])),
-  ).sort((a, b) => a.localeCompare(b));
-
-  const filteredNotes = activeTopic
-    ? notes.filter((note) => (note.data.topics ?? []).includes(activeTopic))
-    : notes;
-
-  const sortedNotes = filteredNotes.sort((a, b) =>
-    (b.data.date ?? "").localeCompare(a.data.date ?? ""),
-  );
+  const items = notes.map((note) => ({
+    slug: note.slug,
+    title: note.data.title ?? note.slug,
+    date: note.data.date ?? "",
+    topics: note.data.topics ?? [],
+  }));
 
   return (
     <main style={{ padding: 32, maxWidth: 900, margin: "0 auto" }}>
@@ -51,67 +42,21 @@ export default async function SubjectPage({
       <p>
         <Link href="/notes">Back to notes</Link>
       </p>
-
-      <section style={{ marginTop: 24 }}>
-        <h2>Filter by topic</h2>
-        <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
-          <Link
-            href={`/notes/subject/${encodeURIComponent(subject)}`}
-            style={{
-              padding: "6px 12px",
-              border: "1px solid #ccc",
-              borderRadius: 999,
-              textDecoration: "none",
-            }}
-          >
-            All topics
-          </Link>
-          {topicOptions.map((topic) => (
-            <Link
-              key={topic}
-              href={`/notes/subject/${encodeURIComponent(
-                subject,
-              )}?topic=${encodeURIComponent(topic)}`}
-              style={{
-                padding: "6px 12px",
-                border: "1px solid #ccc",
-                borderRadius: 999,
-                textDecoration: "none",
-              }}
-            >
-              {formatLabel(topic)}
-            </Link>
-          ))}
-        </div>
-      </section>
-
-      <section style={{ marginTop: 24 }}>
-        <h2>Latest notes</h2>
-        <ul>
-          {sortedNotes.map((note) => {
-            const topics = note.data.topics ?? [];
-            return (
-              <li key={note.slug}>
-                <Link href={`/notes/${note.slug}`}>
-                  {note.data.title ?? note.slug}
-                </Link>
-                {(note.data.date || topics.length) ? (
-                  <div className="meta-line">
-                    {note.data.date ? (
-                      <span className="meta-item">{note.data.date}</span>
-                    ) : null}
-                    {topics.map((topic) => (
-                      <span key={topic} className="meta-item">
-                        {topic}
-                      </span>
-                    ))}
-                  </div>
-                ) : null}
-              </li>
-            );
-          })}
-        </ul>
-      </section>
+      <Suspense fallback={<p>Loading notes...</p>}>
+        <SubjectNotesClient notes={items} subject={subject} />
+      </Suspense>
     </main>
   );
+}
+
+export function generateStaticParams() {
+  const subjects = Array.from(
+    new Set(
+      getNoteSlugs()
+        .map((slug) => getNoteBySlug(slug))
+        .flatMap((note) => note.data.subjects ?? []),
+    ),
+  );
+
+  return subjects.map((subject) => ({ subject }));
 }

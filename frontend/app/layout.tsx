@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { IBM_Plex_Serif } from "next/font/google";
+import { withBasePath } from "../lib/site";
 import SiteHeader from "./site-header";
 import ThemeToggle from "./theme-toggle";
 import "./globals.css";
@@ -15,7 +16,7 @@ export const metadata: Metadata = {
   title: "Toby Purbojo",
   description: "Personal website of Toby Purbojo",
   icons: {
-    icon: "/t.png",
+    icon: withBasePath("/t.png"),
   },
 };
 
