@@ -19,8 +19,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      NEXT_PUBLIC_BASE_PATH: /${{ github.event.repository.name }}
-      NEXT_PUBLIC_SITE_URL: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}
+      NEXT_PUBLIC_BASE_PATH: ""
+      NEXT_PUBLIC_SITE_URL: https://tobypurbojo.com
       NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
       NOTION_DATABASE_ID: ${{ secrets.NOTION_DATABASE_ID }}
       NOTION_VERSION: ${{ secrets.NOTION_VERSION }}
@@ -47,15 +47,9 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 24
           cache: npm
           cache-dependency-path: frontend/package-lock.json
-
-      - name: Clear base path for user-site repositories
-        if: endsWith(github.event.repository.name, '.github.io')
-        run: |
-          echo "NEXT_PUBLIC_BASE_PATH=" >> "$GITHUB_ENV"
-          echo "NEXT_PUBLIC_SITE_URL=https://${{ github.repository_owner }}.github.io" >> "$GITHUB_ENV"
 
       - name: Install dependencies
         working-directory: frontend
