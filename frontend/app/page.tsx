@@ -64,12 +64,12 @@ export default function Home() {
       <section>
         <h1>Toby Purbojo</h1>
         <p className="home-intro">
-          Hi, I’m Toby. I’m currently studying for a Master’s degree in Data
-          Science in Debrecen, Hungary. I’ve done some research on isolated sign
-          language recognition, but I’m still exploring different areas of the
-          field to figure out what I want to focus on. In my spare time, I enjoy
-          reading, photography, music, and sports. I created this website to
-          share my notes and some of the cool things I’ve built.
+          Hi, I’m Toby. I’m a Data Science master’s student in Debrecen, Hungary, interested in machine learning, computer vision, and the systems behind them.
+          
+          I use this site to share things I’ve built, notes from what I’m learning, and topics I find interesting.
+        </p>
+        <p className="home-intro">
+          Currently → AWS SAA-C03 · Document AI · MSc Thesis
         </p>
         <p className="social-line">
           Find me on{" "}

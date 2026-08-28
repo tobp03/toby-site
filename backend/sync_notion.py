@@ -266,8 +266,8 @@ def download_image(url: str, dest_dir: Path, fallback_stem: str) -> str:
     parsed = urlparse(url)
     filename = os.path.basename(parsed.path)
     stem, ext = os.path.splitext(filename)
-    if not stem:
-        stem = fallback_stem
+    safe_fallback_stem = re.sub(r"[^A-Za-z0-9._-]+", "-", fallback_stem).strip("-") or "image"
+    safe_stem = re.sub(r"[^A-Za-z0-9._-]+", "-", stem).strip("-") if stem else ""
     if not ext:
         ext = ""
 
@@ -278,7 +278,10 @@ def download_image(url: str, dest_dir: Path, fallback_stem: str) -> str:
         content_type = response.headers.get("Content-Type", "").split(";", 1)[0]
         ext = mimetypes.guess_extension(content_type) or ".png"
 
-    final_name = f"{stem}{ext}"
+    # Use the block id as a stable prefix so repeated Notion filenames like
+    # "image.png" do not overwrite each other within the same note folder.
+    final_stem = f"{safe_fallback_stem}-{safe_stem}" if safe_stem else safe_fallback_stem
+    final_name = f"{final_stem}{ext}"
     dest_dir.mkdir(parents=True, exist_ok=True)
     dest_path = dest_dir / final_name
     dest_path.write_bytes(response.content)
